@@ -192,6 +192,25 @@ Let's start with pushing a number to a widget.
 update.pushNumber("yourNumberStream", 14600)
 ```
 
+You can also push in a suffix or prefix for a number as follows:
+
+```python
+update.pushNumber("yourNumberStream", {"prefix": "$", "number": 4})
+update.pushNumber("yourNumberStream", {"suffix": "m/s", "number": 35})
+```
+
+And for sparklines/line graphs, you can use a unix timestamp as follows:
+```python
+update.pushNumber("yourNumberStream", {"number": 13, "timestamp": 1329205474})
+```
+
+Finally, an array of numbers:
+```python
+update.pushNumber("yourSparklineStream", [{"number", 93, "timestamp": 1329205474}, {"number": 35, "timestamp": 1329206474}])
+```
+
+For number arrays, timestamps must be monotonically increasing, and each element of the array must have a timestamp.
+
 Now we'll push some geographic coordinates to a map widget. You can use either the U.S. or world map widgets. The first coordinate (37.8) is the latitude and the second coordinate (-122.6) is the longitude. If your request is successful, you should see a data point appear on San Francisco, California. Optionally, if you'd like to set the color of your map point simply specify that in your function call. *Note*: only red, blue, green, purple, and yellow colors are supported at this time. Incorrect or missing color will default to red.
 
 ```python
@@ -202,16 +221,23 @@ update.pushGeo("yourGeoStream", 37.8, -122.6)
 update.pushGeo("yourGeoStream", 37.8, -122.6, "blue")
 ```
 
+You can also push an array of latitude, longitude, and colors:
+```python
+update.pushGeo("yourGeoStream", [37.8, 12.3], [-122.6, 52], ['blue, 'red'])
+```
+The above example will create two points. A blue point at (37.8, -122.6) and a red point at (12.3, 52). The color array is optional.
+
 Here's how you push a title and message to a text feed widget.
 
 ```python
-update.pushText("yourTextStream", "This is my title.", "Hello World!")
+update.pushText("yourTextStream", "This is my title.", "Hello World!", "http://example.com/myimage.png")
 ```
+The third parameter, the image URL, is optional.
 
 Let's push an array of names and values to a leaderboard widget. Be sure to create the array first (you may call it whatever you'd like). Be careful to use the proper syntax. Next, push the array to your widget.
 
 ```python
-leaderArray = [{"name": "Johnny", "value": 84}, {"name": "Jamie", "value": 75}, {"name": "Lance", "value": 62}]
+leaderArray = [{"name": "Johnny", "value": 84}, {"name": "Jamie", "value": 75}, {"name": "Lance", "value": 62, "prefix": "$"}]
 
 update.pushLeaderboard("yourBoardStream", leaderArray)
 ```
@@ -219,9 +245,45 @@ update.pushLeaderboard("yourBoardStream", leaderArray)
 Similar to the last example, let's push a list of items to a list widget. Same rules as last time.
 
 ```python
-listArray = [{"listItem": "Elizabeth"}, {"listItem": "Marshall"}, {"listItem": "Claire"}, {"listItem": "Nolan"}]
+listArray = ["Elizabeth", "Marshall", "Claire", "Nolan"]
 
 update.pushList("yourListStream", listArray)
+```
+
+Image and Label widgets are now customizable through the API! Let's update an image widget:
+
+```python
+update.pushImage("yourImageStream", "http://example.com/mypicture.png")
+```
+
+And a label widget:
+
+```python
+update.pushLabel("yourLabelStream", "Uptime")
+```
+
+Updating an X-Y widget pair:
+
+```python
+x = 15
+y = 8
+update.pushPair("yourPairStream", x, y)
+
+# x and y can also be arrays, such as x = [10, 23, 45], y = [12, 90, 30]; this would create three points at (10, 12), (23, 90) and (45, 30)
+```
+
+Updating a table:
+
+```python
+headerRow = ['name', 'city', 'country']
+dataRows = [ ['Lionel', 'Rosario', 'Argentina'], ['Andres', 'Albacete', 'Spain']]
+update.pushTable("yourTableStream", headerRow, dataRows)
+```
+
+And clearing a widget. You can programmatically clear Map, Text Feed, Sparkline/Line Graph, and Pair widgets:
+
+```python
+update.clear("yourStreamName")
 ```
 
 Ruby
@@ -287,7 +349,7 @@ Finally, let's push an array to a list widget.
 update = leftronic.push_list "yourListStream", some_array
 ```
 ```ruby
-update = leftronic.push_list "yourListStream", 'Elizabeth', 'Marchall', 'Claire', 'Nolan'
+update = leftronic.push_list "yourListStream", 'Elizabeth', 'Marshall', 'Claire', 'Nolan'
 ```
 
 Java

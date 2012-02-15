@@ -200,11 +200,13 @@ update.pushNumber("yourNumberStream", {"suffix": "m/s", "number": 35})
 ```
 
 And for sparklines/line graphs, you can use a unix timestamp as follows:
+
 ```python
 update.pushNumber("yourNumberStream", {"number": 13, "timestamp": 1329205474})
 ```
 
 Finally, an array of numbers:
+
 ```python
 update.pushNumber("yourSparklineStream", [{"number", 93, "timestamp": 1329205474}, {"number": 35, "timestamp": 1329206474}])
 ```
@@ -222,12 +224,14 @@ update.pushGeo("yourGeoStream", 37.8, -122.6, "blue")
 ```
 
 You can also push an array of latitude, longitude, and colors:
+
 ```python
 update.pushGeo("yourGeoStream", [37.8, 12.3], [-122.6, 52], ['blue, 'red'])
 ```
+
 The above example will create two points. A blue point at (37.8, -122.6) and a red point at (12.3, 52). The color array is optional.
 
-Here's how you push a title and message to a text feed widget.
+Here's how you push a title and message to a text feed widget:
 
 ```python
 update.pushText("yourTextStream", "This is my title.", "Hello World!", "http://example.com/myimage.png")
@@ -269,7 +273,8 @@ x = 15
 y = 8
 update.pushPair("yourPairStream", x, y)
 
-# x and y can also be arrays, such as x = [10, 23, 45], y = [12, 90, 30]; this would create three points at (10, 12), (23, 90) and (45, 30)
+# x and y can also be arrays, such as x = [10, 23, 45], y = [12, 90, 30]
+# this would create three points at (10, 12), (23, 90) and (45, 30)
 ```
 
 Updating a table:

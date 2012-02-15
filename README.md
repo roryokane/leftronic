@@ -254,19 +254,19 @@ listArray = ["Elizabeth", "Marshall", "Claire", "Nolan"]
 update.pushList("yourListStream", listArray)
 ```
 
-Image and Label widgets are now customizable through the API! Let's update an image widget:
+Image and Label widgets are now customizable through the API! Let's update an Image widget:
 
 ```python
 update.pushImage("yourImageStream", "http://example.com/mypicture.png")
 ```
 
-And a label widget:
+And a Label widget:
 
 ```python
 update.pushLabel("yourLabelStream", "Uptime")
 ```
 
-Updating an X-Y widget pair:
+Updating an X-Y Pair widget:
 
 ```python
 x = 15
@@ -277,7 +277,7 @@ update.pushPair("yourPairStream", x, y)
 # this would create three points at (10, 12), (23, 90) and (45, 30)
 ```
 
-Updating a table:
+Updating a Table widget:
 
 ```python
 headerRow = ['name', 'city', 'country']

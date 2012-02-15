@@ -226,7 +226,7 @@ update.pushGeo("yourGeoStream", 37.8, -122.6, "blue")
 You can also push an array of latitude, longitude, and colors:
 
 ```python
-update.pushGeo("yourGeoStream", [37.8, 12.3], [-122.6, 52], ['blue, 'red'])
+update.pushGeo("yourGeoStream", [37.8, 12.3], [-122.6, 52], ["blue", "red"])
 ```
 
 The above example will create two points. A blue point at (37.8, -122.6) and a red point at (12.3, 52). The color array is optional.

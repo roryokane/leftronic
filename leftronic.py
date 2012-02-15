@@ -8,7 +8,7 @@ class Leftronic(object):
     def __init__(self, authKey):
         # Sets accessKey
         self.accessKey = authKey
-        self.apiUrl = 'http://dev.leftronic.com/customSend/'
+        self.apiUrl = 'https://beta.leftronic.com/customSend/'
 
     def pushNumber(self, streamName, point):
         """ 

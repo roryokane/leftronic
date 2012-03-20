@@ -291,6 +291,17 @@ And clearing a widget. You can programmatically clear Map, Text Feed, Sparkline/
 update.clear("yourStreamName")
 ```
 
+You can also push data to multiple streams in a single call using   `pushMultiple(data)`, where `data` is a list of dicts.  For convenience, `populate` functions, which take the same arguments as their corresponding `push` functions, can be used to create dicts that are properly formatted for `pushMultiple()`.
+
+```python
+multipush = []
+
+multipush.append(update.populateNumber("MyNumberStream", 42))
+multipush.append(leftconn.populateGeo("MyMap", 34, -118))
+
+update.pushMultiple(multipush)
+```
+
 Ruby
 ----
 

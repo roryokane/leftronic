@@ -1,4 +1,8 @@
-import urllib2
+try:
+    from eventlet.green import urllib2
+except:
+    print 'Could not import eventlet. Please install eventlet on your machine if you wish to use our asynchronous API.'
+    import urllib2
 import json
 
 class Leftronic(object):
@@ -146,6 +150,6 @@ class Leftronic(object):
         jsonData = json.dumps(parameters)
         # Make request
         response = urllib2.urlopen(self.apiUrl, jsonData)
-        return response.read()
+        #return response.read()
 
     

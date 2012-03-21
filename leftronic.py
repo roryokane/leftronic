@@ -18,10 +18,13 @@ class Leftronic(object):
 
     """ Provides access to Leftronic Custom Data API """
 
-    def __init__(self, authKey, cryptoKey=None):
+    def __init__(self, authKey):
         # Sets accessKey
         self.accessKey = authKey
         self.apiUrl = 'http://127.0.0.1:3000'
+        self.cryptoKey = None
+
+    def setEncryptionKey(self, cryptoKey):
         self.cryptoKey = cryptoKey
 
     def pushMultiple(self, points):

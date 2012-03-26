@@ -104,7 +104,7 @@ pushList("yourListStream", listArray);
 PHP
 ---
 
-Start by downloading the most recent version of our PHP API at https://github.com/sonofabell/leftronic/blob/master/leftronic.php.
+Start by downloading the most recent version of our PHP API at https://github.com/sonofabell/leftronic/blob/master/leftronic.php. You only need `leftronic.php` and the `CAcerts` folder; the `test.html` and `pushNumber.php` are very simple integration examples.
 
 ### Dependencies
 

@@ -1,6 +1,6 @@
 <?php
 
-# Note: Use of "json_encode()" requires PHP 5.2.0 or greater
+# Use of "json_encode()" requires PHP 5.2.0 or greater
 
 class Leftronic {
 	
@@ -8,21 +8,19 @@ class Leftronic {
 	
 	public function __construct($secretKey) {
 		$this->accessKey = $secretKey;
+		$apiUrl = 'https://beta.leftronic.com/customSend/'
 	}
 	
 	public function pushNumber($streamName, $point) {
 		### Pushing a number to a Number, Horizontal/Vertical Bar, or Dial widget
+		if (is_numeric($point)) {
+			$point = array('number' => $point);
+		}
 		$parameters = array('accessKey' => $this->accessKey, 'streamName' => $streamName, 'point' => $point);
 		# Convert to JSON
 		$jsonData = json_encode($parameters);
-		# cURL options
-		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($ch, CURLOPT_POST, 1);
-		curl_setopt($ch, CURLOPT_URL, 'https://beta.leftronic.com/customSend/');
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
-		# Make the request
-		$result = curl_exec($ch);
+		# Make request
+		postData($jsonData)
 	}
 
 	public function pushGeo($streamName, $lati, $longi, $color=Null) {
@@ -33,14 +31,8 @@ class Leftronic {
 			'latitude' => $lati, 'longitude' => $longi, 'color' => $color));
 		# Convert to JSON
 		$jsonData = json_encode($parameters);
-		# cURL options
-		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($ch, CURLOPT_POST, 1);
-		curl_setopt($ch, CURLOPT_URL, 'https://beta.leftronic.com/customSend/');
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
-		# Make the request
-		$result = curl_exec($ch);
+		# Make request
+		postData($jsonData)
 	}
 	
 	public function pushText($streamName, $myTitle, $myMsg) {
@@ -49,14 +41,8 @@ class Leftronic {
 			'title' => $myTitle, 'msg' => $myMsg));
 		# Convert to JSON
 		$jsonData = json_encode($parameters);
-		# cURL options
-		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($ch, CURLOPT_POST, 1);
-		curl_setopt($ch, CURLOPT_URL, 'https://beta.leftronic.com/customSend/');
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
-		# Make the request
-		$result = curl_exec($ch);
+		# Make request
+		postData($jsonData)
 	}
 	
 	public function pushLeaderboard($streamName, array $leaderArray) {
@@ -65,14 +51,8 @@ class Leftronic {
 			'leaderboard' => $leaderArray));
 		# Convert to JSON
 		$jsonData = json_encode($parameters);
-		# cURL options
-		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($ch, CURLOPT_POST, 1);
-		curl_setopt($ch, CURLOPT_URL, 'https://beta.leftronic.com/customSend/');
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
-		# Make the request
-		$result = curl_exec($ch);
+		# Make request
+		postData($jsonData)
 	}
 	
 	public function pushList($streamName, array $listArray) {
@@ -81,15 +61,25 @@ class Leftronic {
 			'list' => $listArray));
 		# Convert to JSON
 		$jsonData = json_encode($parameters);
-		# cURL options
+		# Make request
+		postData($jsonData)
+	}
+
+	public function postData($data)
+		### Makes an HTTP POST with JSON data
 		$ch = curl_init();
+		# SSL options
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+		# Check that common name exists and that it matches server hostname
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+		curl_setopt($ch, CURLOPT_CAINFO, getcwd() ."/CAcerts/BuiltinObjectToken-GoDaddyClass2CA.cert");
+		# POST options
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		curl_setopt($ch, CURLOPT_POST, 1);
-		curl_setopt($ch, CURLOPT_URL, 'https://beta.leftronic.com/customSend/');
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
+		curl_setopt($ch, CURLOPT_POST, true);
+		curl_setopt($ch, CURLOPT_URL, $apiUrl);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
 		# Make the request
 		$result = curl_exec($ch);
-	}
 }
 
 ?>

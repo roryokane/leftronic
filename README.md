@@ -108,7 +108,7 @@ Start by downloading the most recent version of our PHP API at https://github.co
 
 ### Dependencies
 
-This API library uses "json_encode()" which requires [PHP](http://php.net/downloads.php) 5.2.0 or greater.
+This API library uses "json_encode()" which requires [PHP](http://php.net/downloads.php) 5.2.0 or greater. Please also make sure to have the 'CAcerts' folder in the same path as your leftronic.php file.
 
 Create a class instance with your API key. Feel free to name it whatever you'd like.
 

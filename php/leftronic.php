@@ -8,7 +8,7 @@ class Leftronic {
 	
 	public function __construct($secretKey) {
 		$this->accessKey = $secretKey;
-		$apiUrl = 'https://beta.leftronic.com/customSend/'
+		$this->apiUrl = 'https://www.leftronic.com/customSend/';
 	}
 	
 	public function pushNumber($streamName, $point) {
@@ -20,7 +20,7 @@ class Leftronic {
 		# Convert to JSON
 		$jsonData = json_encode($parameters);
 		# Make request
-		postData($jsonData)
+		$this->postData($jsonData);
 	}
 
 	public function pushGeo($streamName, $lati, $longi, $color=Null) {
@@ -32,7 +32,7 @@ class Leftronic {
 		# Convert to JSON
 		$jsonData = json_encode($parameters);
 		# Make request
-		postData($jsonData)
+		$this->postData($jsonData);
 	}
 	
 	public function pushText($streamName, $myTitle, $myMsg) {
@@ -42,7 +42,7 @@ class Leftronic {
 		# Convert to JSON
 		$jsonData = json_encode($parameters);
 		# Make request
-		postData($jsonData)
+		$this->postData($jsonData);
 	}
 	
 	public function pushLeaderboard($streamName, array $leaderArray) {
@@ -52,7 +52,7 @@ class Leftronic {
 		# Convert to JSON
 		$jsonData = json_encode($parameters);
 		# Make request
-		postData($jsonData)
+		$this->postData($jsonData);
 	}
 	
 	public function pushList($streamName, array $listArray) {
@@ -62,24 +62,25 @@ class Leftronic {
 		# Convert to JSON
 		$jsonData = json_encode($parameters);
 		# Make request
-		postData($jsonData)
+		$this->postData($jsonData);
 	}
 
-	public function postData($data)
+	public function postData($data) {
 		### Makes an HTTP POST with JSON data
 		$ch = curl_init();
 		# SSL options
-		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 		# Check that common name exists and that it matches server hostname
 		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
 		curl_setopt($ch, CURLOPT_CAINFO, getcwd() ."/CAcerts/BuiltinObjectToken-GoDaddyClass2CA.cert");
 		# POST options
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($ch, CURLOPT_POST, true);
-		curl_setopt($ch, CURLOPT_URL, $apiUrl);
+		curl_setopt($ch, CURLOPT_URL, $this->apiUrl);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
 		# Make the request
 		$result = curl_exec($ch);
+	}
 }
 
 ?>

@@ -16,7 +16,7 @@
   ],
   "engine": {
     "node": ">=0.2"
-  }
+  },
   "main": "main.js",
   "dependencies": {},
   "devDependencies": {}

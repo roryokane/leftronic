@@ -220,10 +220,21 @@ class Leftronic(object):
                                                 dataRows))
 
     def populateTable(self, streamName, headerRow, dataRows):
+        """ Formats table as a dict """
         dataRows.insert(0, headerRow)
         point = {'table': dataRows}
         return {'streamName': streamName,
                 'point': point}
+
+    def pushHtml(self, streamName, htmlData):
+        """ Pushes HTML to an HTML widget """
+        return self.postData(self.populateHtml(streamName,
+                                               htmlData))
+
+    def populateHtml(self, streamName, htmlData):
+        """ Formats HTML as a dict """
+        return {'streamName': streamName,
+                'point': {'html': htmlData}}
 
     def clear(self, streamName):
         parameters = {'streamName': streamName,

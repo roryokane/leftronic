@@ -2,7 +2,7 @@
   "author": "Cesar Del Solar <cesar@leftronic.com>",
   "name": "leftronic",
   "description": "Leftronic Dashboard API",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "homepage": "https://www.leftronic.com",
   "repository": {
     "type": "git",

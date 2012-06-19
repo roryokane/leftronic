@@ -5,6 +5,11 @@ require 'json'
 
 class Leftronic
   ALLOWED_COLORS = [:red, :yellow, :green, :blue, :purple]
+  DEFAULT_STOPLIGHT_THRESHOLDS = begin
+    values = Hash.new(0) # :okay and others return 0
+    values.merge({:warning => 50, :alert => 100})
+  end
+  
   attr_accessor :key
   def url=(url)
     @url = URI(url.to_s)
@@ -26,6 +31,12 @@ class Leftronic
   # Push a Number to a widget
   def push_number(stream, point)
     post stream, point
+  end
+
+  # Push a status value :okay, :warning, or :alert to a Stoplight widget
+  # note that you can also push a number to a Stoplight
+  def push_stoplight(stream, stoplight_value, threshold_values=DEFAULT_STOPLIGHT_THRESHOLDS)
+    push_number stream, threshold_values[stoplight_value]
   end
 
   # Push a geographic location (latitude and longitude) to a Map widget

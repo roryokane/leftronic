@@ -51,6 +51,11 @@ class Leftronic
     post_point stream, 'list' => array.flatten.map{|item| {'listItem' => item}}
   end
   
+  # Push HTML content to an HTML widget
+  def push_html(stream, html)
+    post_point stream, 'html' => html
+  end
+  
   # Clear a widget
   def clear(stream)
     post stream, 'command' => 'clear'
